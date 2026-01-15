@@ -2,212 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
-    <title>Pranav Designs | Creative Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=1200"> <title>Pranav Designs | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Variables for easy color changes */
-        :root {
-            --neon-blue: #00f2fe;
-            --dark-blue: #012e4a;
-            --text-light: #e0e0e0;
-            --text-dark: #888;
-        }
-
-        /* Basic Resets */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background: #000;
             color: white;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
             height: 100vh;
-            display: flex; /* For centering content */
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px; /* For 3D transforms */
         }
 
-        /* Video Background Layer */
+        /* 1. Background Video Layer */
         .video-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -1;
-            filter: brightness(0.3) contrast(1.1);
+            object-fit: cover;
+            filter: brightness(0.3) contrast(1.1); /* Video ko dark kiya taaki content chamke */
         }
 
-        /* Main Content Wrapper (Hero Section) */
+        /* 2. Main Content Wrapper */
         .hero-section {
-            width: 80%; /* Adjust as needed */
-            max-width: 1400px;
-            height: 70vh; /* Adjust height */
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 10%;
             position: relative;
-            transform-style: preserve-3d; /* For child 3D transforms */
         }
 
-        /* Left Side: Text Content */
+        /* Left Side: Text Animation */
         .text-content {
-            max-width: 550px;
+            max-width: 500px;
             z-index: 2;
-            padding-right: 50px; /* Space from right graphic */
-            transform-style: preserve-3d;
-            transform: translateZ(50px); /* Gives it depth */
             opacity: 0;
-            animation: slideInLeft 1.2s ease-out forwards;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease forwards;
             animation-delay: 0.5s;
         }
 
         .category {
-            color: var(--neon-blue);
+            color: #00f2fe;
             font-size: 1.2rem;
             letter-spacing: 2px;
             font-weight: 300;
-            margin-bottom: 10px;
         }
 
         h1 {
-            font-size: 5.5rem;
+            font-size: 5rem;
             font-weight: 900;
             line-height: 0.9;
-            margin: 0;
+            margin: 15px 0;
             text-transform: uppercase;
-            background: linear-gradient(to bottom, var(--text-light), var(--text-dark));
+            background: linear-gradient(to bottom, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .tagline {
-            font-family: 'Share Tech Mono', monospace; /* Techy font */
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #bbb;
-            border-left: 3px solid var(--neon-blue);
-            padding-left: 20px;
-            margin-top: 25px;
-            line-height: 1.5;
-            text-shadow: 0 0 5px rgba(0,242,254,0.3);
+            border-left: 2px solid #00f2fe;
+            padding-left: 15px;
+            margin-top: 20px;
         }
 
-        /* Right Side: Generated Graphics (PC Setup Look) */
-        .graphic-container {
-            position: relative;
-            width: 45%;
-            height: 100%;
+        /* Right Side: Character Image */
+        .image-container {
+            width: 50%;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
+            justify-content: flex-end;
             opacity: 0;
-            animation: slideInRight 1.5s ease-out forwards;
+            transform: translateY(80px);
+            animation: fadeInUp 1.8s ease forwards;
             animation-delay: 0.8s;
         }
 
-        .graphic-element {
-            position: absolute;
-            background: rgba(var(--neon-blue-rgb), 0.2); /* Use a calculated RGB for transparency */
-            border-radius: 50%;
-            border: 1px solid rgba(var(--neon-blue-rgb), 0.3);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
-            animation: floatEffect 8s ease-in-out infinite alternate;
-            transform-style: preserve-3d;
-        }
-
-        /* Specific elements for the "PC setup" look */
-        .monitor {
-            width: 250px;
-            height: 180px;
-            background: var(--dark-blue);
-            border-radius: 10px;
-            transform: rotateY(15deg) rotateX(5deg) translateZ(80px);
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.7), inset 0 0 20px rgba(0, 242, 254, 0.5);
-            border: 2px solid var(--neon-blue);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px var(--neon-blue);
-            overflow: hidden;
-        }
-        .monitor::before {
-            content: '';
-            position: absolute;
-            width: 80%;
-            height: 70%;
-            background: linear-gradient(to bottom, rgba(0,242,254,0.1), transparent);
-            border-radius: 5px;
-            top: 15%;
-            left: 10%;
-            animation: glitchText 1.5s steps(2, end) infinite; /* Simulate glitching text */
-        }
-        @keyframes glitchText {
-            0% { background-position: 0 0; }
-            50% { background-position: 0 -100px; }
-            100% { background-position: 0 0; }
-        }
-
-
-        .keyboard {
-            width: 200px;
-            height: 60px;
-            background: #111;
-            border-radius: 5px;
-            transform: rotateY(15deg) rotateX(15deg) translateZ(50px) translateY(120px) translateX(-50px);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            border: 1px solid var(--neon-blue);
-        }
-
-        .mouse {
-            width: 40px;
-            height: 60px;
-            background: #111;
-            border-radius: 50% 50% 30% 30% / 100% 100% 0 0;
-            transform: rotateY(10deg) rotateX(15deg) translateZ(60px) translateY(120px) translateX(80px);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-            border: 1px solid var(--neon-blue);
-        }
-
-        /* Animated Glowing Circles (Abstract elements like "birds" or "lines") */
-        .glowing-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,242,254,0.4) 0%, rgba(0,242,254,0) 70%);
-            animation: pulse 4s ease-in-out infinite alternate;
-            transform-style: preserve-3d;
-        }
-
-        .circle-1 {
-            width: 80px; height: 80px;
-            top: 10%; left: 10%;
-            transform: translateZ(-20px) rotateY(10deg);
-            animation-delay: 0.5s;
-        }
-        .circle-2 {
-            width: 120px; height: 120px;
-            bottom: 5%; right: 5%;
-            transform: translateZ(-50px) rotateY(-15deg);
-            animation-delay: 1s;
-        }
-        .circle-3 {
-            width: 50px; height: 50px;
-            top: 40%; right: 20%;
-            transform: translateZ(10px) rotateY(5deg);
-            animation-delay: 0s;
+        .character-img {
+            max-width: 110%;
+            /* Matching Logic: Glow and Shadow */
+            filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.3)); 
+            pointer-events: none;
+            transition: transform 0.2s ease-out;
         }
 
         /* Scroll Indicator */
@@ -216,42 +98,18 @@
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             letter-spacing: 3px;
             color: rgba(255,255,255,0.4);
             animation: bounce 2s infinite;
-            opacity: 0;
-            animation: bounce 2s infinite, fadeIn 1s ease forwards;
-            animation-delay: 2.5s;
         }
 
-        /* Keyframe Animations */
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-100px) translateZ(50px); }
-            to { opacity: 1; transform: translateX(0) translateZ(50px); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(100px) translateZ(0); }
-            to { opacity: 1; transform: translateX(0) translateZ(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes floatEffect {
-            0% { transform: translateZ(0) translateY(0); }
-            50% { transform: translateZ(20px) translateY(-10px); }
-            100% { transform: translateZ(0) translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.6; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.6; }
+        /* Keyframes for Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes bounce {
@@ -259,61 +117,39 @@
             40% {transform: translateY(-10px) translateX(-50%);}
             60% {transform: translateY(-5px) translateX(-50%);}
         }
+
     </style>
 </head>
 <body>
 
     <video autoplay muted loop playsinline class="video-bg">
-        <source src="bg-video.mp4" type="video/mp4"> 
-        Your browser does not support the video tag.
+        <source src="bg-video.mp4" type="video/mp4">
     </video>
 
     <div class="hero-section" id="scene">
         <div class="text-content">
             <p class="category">CREATIVE ALCHEMIST</p>
             <h1>PRANAV<br>DESIGNS</h1>
-            <p class="tagline">// Crafting Digital Realms with Code & Pixels.<br>// Interactive 3D Animations & Visual Storytelling.</p>
+            <p class="tagline">// Crafting Digital Realms with Code & Pixels</p>
         </div>
 
-        <div class="graphic-container">
-            <div class="graphic-element monitor">
-                <span style="animation: typing 2s steps(20, end) infinite; overflow: hidden; white-space: nowrap; display: inline-block;">_SYSTEM_INITIATED_</span>
-            </div>
-            <div class="graphic-element keyboard"></div>
-            <div class="graphic-element mouse"></div>
-
-            <div class="glowing-circle circle-1"></div>
-            <div class="glowing-circle circle-2"></div>
-            <div class="glowing-circle circle-3"></div>
+        <div class="image-container">
+            <img src="character.png" alt="Gaming Setup" class="character-img" id="character">
         </div>
 
-        <div class="scroll-hint">SCROLL FOR PROJECTS ↓</div>
+        <div class="scroll-hint">SCROLL INDICATOR // 100OD ↓</div>
     </div>
 
     <script>
-        // Parallax Effect for Depth
+        // Mouse movement se halka sa 3D parallax effect
         document.addEventListener('mousemove', (e) => {
-            const hero = document.getElementById('scene');
-            const text = document.querySelector('.text-content');
-            const graphics = document.querySelector('.graphic-container');
-
-            let x = (e.clientX - window.innerWidth / 2) / 30; // Reduce movement for smoother effect
-            let y = (e.clientY - window.innerHeight / 2) / 30;
-
-            // Rotate the whole hero section slightly
-            hero.style.transform = `rotateY(${x * 0.5}deg) rotateX(${y * 0.5}deg)`;
-
-            // Elements within the hero section can also move at different speeds for more depth
-            text.style.transform = `translateZ(50px) translateX(${-x * 0.8}px) translateY(${-y * 0.8}px)`;
-            graphics.style.transform = `translateZ(20px) translateX(${x * 0.6}px) translateY(${y * 0.6}px)`;
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            // Text aur Image dono alag speed se move honge (Depth feel hogi)
+            document.getElementById('character').style.transform = `translate(${moveX * 2}px, ${moveY * 2}px)`;
+            document.querySelector('.text-content').style.transform = `translate(${-moveX}px, ${-moveY}px)`;
         });
-
-        // For the typing effect in monitor
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
     </script>
 </body>
 </html>
