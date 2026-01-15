@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200"> <title>3D Pro Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #00f2fe;
+            --secondary-color: #4facfe;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            overflow: hidden; /* Scroll band karne ke liye taaki immersive lage */
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Video Background Styling */
+        .video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: brightness(0.4) contrast(1.2); /* Video ko dark kiya taaki text chamke */
+        }
+
+        /* Overlay Effect */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, #000 120%);
+        }
+
+        /* Main Container */
+        .main-frame {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+        }
+
+        /* 3D Glass Card */
+        .portfolio-card {
+            width: 900px;
+            height: 550px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 50px 80px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        /* Content Sections */
+        .left-side {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform: translateZ(50px); /* 3D pop effect */
+        }
+
+        .right-side {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 4rem;
+            line-height: 1;
+            background: linear-gradient(to right, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            width: fit-content;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* Animated 3D Circle for Right Side */
+        .circle-3d {
+            width: 250px;
+            height: 250px;
+            border: 5px dashed var(--primary-color);
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="video-wrapper">
+        <div class="overlay"></div>
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="bg-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="main-frame">
+        <div class="portfolio-card" id="card">
+            <div class="left-side">
+                <p>CREATIVE ARTIST</p>
+                <h1>PRANAV<br>DESIGNS</h1>
+                <p>Specializing in 3D Motion, Visual Storytelling, and Interactive Digital Experiences.</p>
+                <button class="btn">Explore Work</button>
+            </div>
+            <div class="right-side">
+                <div class="circle-3d"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const card = document.getElementById('card');
+        const frame = document.querySelector('.main-frame');
+
+        // 3D Tilt Calculation
+        frame.addEventListener('mousemove', (e) => {
+            let x = (window.innerWidth / 2 - e.pageX) / 25;
+            let y = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+
+        // Mouse Leave Reset
+        frame.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            card.style.transition = "all 0.5s ease";
+        });
+
+        frame.addEventListener('mouseenter', () => {
+            card.style.transition = "none";
+        });
+    </script>
+</body>
+</html>
