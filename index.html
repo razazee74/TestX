@@ -2,199 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200"> <title>3D Pro Portfolio</title>
+    <meta name="viewport" content="width=1200"> <title>Pranav Designs | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #00f2fe;
-            --secondary-color: #4facfe;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background: #000;
-            color: #fff;
-            overflow: hidden; /* Scroll band karne ke liye taaki immersive lage */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
             height: 100vh;
-            width: 100vw;
         }
 
-        /* Video Background Styling */
-        .video-wrapper {
+        /* 1. Background Video Layer */
+        .video-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
+            object-fit: cover;
+            filter: brightness(0.3) contrast(1.1); /* Video ko dark kiya taaki content chamke */
         }
 
-        #bg-video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            filter: brightness(0.4) contrast(1.2); /* Video ko dark kiya taaki text chamke */
-        }
-
-        /* Overlay Effect */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, #000 120%);
-        }
-
-        /* Main Container */
-        .main-frame {
+        /* 2. Main Content Wrapper */
+        .hero-section {
             height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            perspective: 2000px;
+            justify-content: space-between;
+            padding: 0 10%;
+            position: relative;
         }
 
-        /* 3D Glass Card */
-        .portfolio-card {
-            width: 900px;
-            height: 550px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            display: flex;
-            overflow: hidden;
-            box-shadow: 0 50px 80px rgba(0,0,0,0.5);
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease;
+        /* Left Side: Text Animation */
+        .text-content {
+            max-width: 500px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease forwards;
+            animation-delay: 0.5s;
         }
 
-        /* Content Sections */
-        .left-side {
-            flex: 1;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            transform: translateZ(50px); /* 3D pop effect */
-        }
-
-        .right-side {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        .category {
+            color: #00f2fe;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: 300;
         }
 
         h1 {
-            font-size: 4rem;
-            line-height: 1;
-            background: linear-gradient(to right, #fff, var(--primary-color));
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 0.9;
+            margin: 15px 0;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
         }
 
-        p {
+        .tagline {
             font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
+            color: #bbb;
+            border-left: 2px solid #00f2fe;
+            padding-left: 15px;
+            margin-top: 20px;
         }
 
-        .btn {
-            padding: 15px 40px;
-            width: fit-content;
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
+        /* Right Side: Character Image */
+        .image-container {
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            transform: translateY(80px);
+            animation: fadeInUp 1.8s ease forwards;
+            animation-delay: 0.8s;
         }
 
-        .btn:hover {
-            background: var(--primary-color);
-            color: #000;
-            box-shadow: 0 0 20px var(--primary-color);
+        .character-img {
+            max-width: 110%;
+            /* Matching Logic: Glow and Shadow */
+            filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.3)); 
+            pointer-events: none;
+            transition: transform 0.2s ease-out;
         }
 
-        /* Animated 3D Circle for Right Side */
-        .circle-3d {
-            width: 250px;
-            height: 250px;
-            border: 5px dashed var(--primary-color);
-            border-radius: 50%;
-            animation: rotate 10s linear infinite;
+        /* Scroll Indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.4);
+            animation: bounce 2s infinite;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        /* Keyframes for Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
         }
 
     </style>
 </head>
 <body>
 
-    <div class="video-wrapper">
-        <div class="overlay"></div>
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="bg-video.mp4" type="video/mp4">
-        </video>
-    </div>
+    <video autoplay muted loop playsinline class="video-bg">
+        <source src="bg-video.mp4" type="video/mp4">
+    </video>
 
-    <div class="main-frame">
-        <div class="portfolio-card" id="card">
-            <div class="left-side">
-                <p>CREATIVE ARTIST</p>
-                <h1>PRANAV<br>DESIGNS</h1>
-                <p>Specializing in 3D Motion, Visual Storytelling, and Interactive Digital Experiences.</p>
-                <button class="btn">Explore Work</button>
-            </div>
-            <div class="right-side">
-                <div class="circle-3d"></div>
-            </div>
+    <div class="hero-section" id="scene">
+        <div class="text-content">
+            <p class="category">CREATIVE ALCHEMIST</p>
+            <h1>PRANAV<br>DESIGNS</h1>
+            <p class="tagline">// Crafting Digital Realms with Code & Pixels</p>
         </div>
+
+        <div class="image-container">
+            <img src="character.png" alt="Gaming Setup" class="character-img" id="character">
+        </div>
+
+        <div class="scroll-hint">SCROLL INDICATOR // 100OD ↓</div>
     </div>
 
     <script>
-        const card = document.getElementById('card');
-        const frame = document.querySelector('.main-frame');
-
-        // 3D Tilt Calculation
-        frame.addEventListener('mousemove', (e) => {
-            let x = (window.innerWidth / 2 - e.pageX) / 25;
-            let y = (window.innerHeight / 2 - e.pageY) / 25;
+        // Mouse movement se halka sa 3D parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             
-            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-        });
-
-        // Mouse Leave Reset
-        frame.addEventListener('mouseleave', () => {
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-            card.style.transition = "all 0.5s ease";
-        });
-
-        frame.addEventListener('mouseenter', () => {
-            card.style.transition = "none";
+            // Text aur Image dono alag speed se move honge (Depth feel hogi)
+            document.getElementById('character').style.transform = `translate(${moveX * 2}px, ${moveY * 2}px)`;
+            document.querySelector('.text-content').style.transform = `translate(${-moveX}px, ${-moveY}px)`;
         });
     </script>
 </body>
