@@ -1,155 +1,137 @@
+</body>
+</html>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200"> <title>Pranav Designs | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background: #000;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* 1. Background Video Layer */
-        .video-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            object-fit: cover;
-            filter: brightness(0.3) contrast(1.1); /* Video ko dark kiya taaki content chamke */
-        }
-
-        /* 2. Main Content Wrapper */
-        .hero-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10%;
-            position: relative;
-        }
-
-        /* Left Side: Text Animation */
-        .text-content {
-            max-width: 500px;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1.5s ease forwards;
-            animation-delay: 0.5s;
-        }
-
-        .category {
-            color: #00f2fe;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        h1 {
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 0.9;
-            margin: 15px 0;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            color: #bbb;
-            border-left: 2px solid #00f2fe;
-            padding-left: 15px;
-            margin-top: 20px;
-        }
-
-        /* Right Side: Character Image */
-        .image-container {
-            width: 50%;
-            display: flex;
-            justify-content: flex-end;
-            opacity: 0;
-            transform: translateY(80px);
-            animation: fadeInUp 1.8s ease forwards;
-            animation-delay: 0.8s;
-        }
-
-        .character-img {
-            max-width: 110%;
-            /* Matching Logic: Glow and Shadow */
-            filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.3)); 
-            pointer-events: none;
-            transition: transform 0.2s ease-out;
-        }
-
-        /* Scroll Indicator */
-        .scroll-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: rgba(255,255,255,0.4);
-            animation: bounce 2s infinite;
-        }
-
-        /* Keyframes for Animations */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
-            40% {transform: translateY(-10px) translateX(-50%);}
-            60% {transform: translateY(-5px) translateX(-50%);}
-        }
-
-    </style>
+<meta charset="UTF-8">
+<title>Chat App</title>
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+}
+.container {
+  display: flex;
+  height: 100vh;
+}
+.sidebar {
+  width: 30%;
+  background: #1e293b;
+  padding: 10px;
+}
+.chat {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+}
+button {
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
+.profile {
+  margin-bottom: 20px;
+}
+.messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+.msg {
+  background: #334155;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+}
+</style>
 </head>
+
 <body>
 
-    <video autoplay muted loop playsinline class="video-bg">
-        <source src="bg-video.mp4" type="video/mp4">
-    </video>
+<div class="container">
 
-    <div class="hero-section" id="scene">
-        <div class="text-content">
-            <p class="category">CREATIVE ALCHEMIST</p>
-            <h1>PRANAV<br>DESIGNS</h1>
-            <p class="tagline">// Crafting Digital Realms with Code & Pixels</p>
-        </div>
-
-        <div class="image-container">
-            <img src="character.png" alt="Gaming Setup" class="character-img" id="character">
-        </div>
-
-        <div class="scroll-hint">SCROLL INDICATOR // 100OD ↓</div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="profile">
+      <h3>Create Profile</h3>
+      <input id="name" placeholder="Name">
+      <input id="username" placeholder="Username">
+      <input id="bio" placeholder="Bio">
+      <button onclick="createProfile()">Save</button>
     </div>
 
-    <script>
-        // Mouse movement se halka sa 3D parallax effect
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            
-            // Text aur Image dono alag speed se move honge (Depth feel hogi)
-            document.getElementById('character').style.transform = `translate(${moveX * 2}px, ${moveY * 2}px)`;
-            document.querySelector('.text-content').style.transform = `translate(${-moveX}px, ${-moveY}px)`;
-        });
-    </script>
+    <div>
+      <h3>Search User</h3>
+      <input id="searchUser" placeholder="Enter username">
+      <button onclick="addFriend()">Add Friend</button>
+    </div>
+
+    <div>
+      <h3>Friends</h3>
+      <ul id="friends"></ul>
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat">
+    <div class="messages" id="messages"></div>
+    <input id="msgInput" placeholder="Type message">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+
+</div>
+
+<script>
+let profile = {};
+let friends = [];
+
+function createProfile() {
+  profile.name = document.getElementById("name").value;
+  profile.username = document.getElementById("username").value;
+  profile.bio = document.getElementById("bio").value;
+
+  alert("Profile Created!");
+}
+
+function addFriend() {
+  let user = document.getElementById("searchUser").value;
+  if(user) {
+    friends.push(user);
+    renderFriends();
+  }
+}
+
+function renderFriends() {
+  let list = document.getElementById("friends");
+  list.innerHTML = "";
+  friends.forEach(f => {
+    let li = document.createElement("li");
+    li.innerText = f;
+    list.appendChild(li);
+  });
+}
+
+function sendMsg() {
+  let msg = document.getElementById("msgInput").value;
+  if(!msg) return;
+
+  let box = document.getElementById("messages");
+
+  let div = document.createElement("div");
+  div.className = "msg";
+  div.innerText = profile.username + ": " + msg;
+
+  box.appendChild(div);
+  document.getElementById("msgInput").value = "";
+}
+</script>
+
 </body>
 </html>
