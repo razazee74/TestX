@@ -1,137 +1,239 @@
-</body>
-</html>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Chat App</title>
-<style>
-body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-  margin: 0;
-}
-.container {
-  display: flex;
-  height: 100vh;
-}
-.sidebar {
-  width: 30%;
-  background: #1e293b;
-  padding: 10px;
-}
-.chat {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-}
-input, button {
-  padding: 10px;
-  margin: 5px 0;
-  border: none;
-}
-button {
-  background: #3b82f6;
-  color: white;
-  cursor: pointer;
-}
-.profile {
-  margin-bottom: 20px;
-}
-.messages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-}
-.msg {
-  background: #334155;
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
-}
-</style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFM ADS TOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            min-height: 100vh;
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern - Very Subtle */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.06;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23888888' stroke-width='1.5' opacity='0.5'%3E%3Ccircle cx='35' cy='60' r='12'/%3E%3Cpath d='M47 60 C55 55, 65 50, 75 45 C70 52, 65 58, 55 62 C65 58, 72 55, 80 52 C73 60, 65 65, 55 68 C62 64, 70 60, 78 58 C70 66, 60 70, 50 72 C58 68, 65 64, 72 62'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 120px 120px;
+            background-position: 0 0;
+        }
+
+        .bg-pattern::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, #0a0a0a 70%);
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Headline */
+        .headline {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 0;
+        }
+
+        .headline h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #00ff41, #00cc33, #00ff41);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.3));
+        }
+
+        .headline .subtitle {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Divider */
+        .divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Content Area */
+        .content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            color: #00ff41;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .content p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #b0b0b0;
+            margin-bottom: 18px;
+        }
+
+        .content ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .content ul li {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #b0b0b0;
+            font-size: 1rem;
+            line-height: 1.7;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #00ff41;
+            font-size: 1.1rem;
+        }
+
+        .content ul li:last-child {
+            border-bottom: none;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            color: #333;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .headline h1 {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
 <body>
 
-<div class="container">
+    <!-- Subtle Background Pattern -->
+    <div class="bg-pattern"></div>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="profile">
-      <h3>Create Profile</h3>
-      <input id="name" placeholder="Name">
-      <input id="username" placeholder="Username">
-      <input id="bio" placeholder="Bio">
-      <button onclick="createProfile()">Save</button>
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Headline -->
+        <div class="headline">
+            <h1>OFM ADS TOS</h1>
+            <div class="divider"></div>
+            <p class="subtitle">Terms of Service</p>
+        </div>
+
+        <!-- Content - Yahan apna text likho -->
+        <div class="content">
+
+            <div class="section">
+                <h2>Welcome</h2>
+                <p>
+                    Yahan apna content likho. Yeh section fully readable hai aur background 
+                    pattern bilkul subtle hai jo text ko disturb nahi karta.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Rules & Guidelines</h2>
+                <ul>
+                    <li>Rule number one - yahan apna rule likho</li>
+                    <li>Rule number two - yahan apna rule likho</li>
+                    <li>Rule number three - yahan apna rule likho</li>
+                    <li>Rule number four - yahan apna rule likho</li>
+                    <li>Rule number five - yahan apna rule likho</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Important Notice</h2>
+                <p>
+                    Yahan koi bhi important notice ya disclaimer likh sakte ho. 
+                    Background pattern itna light hai ki text perfectly readable rahega.
+                </p>
+                <p>
+                    Agar aur sections chahiye to bas ek aur <code>&lt;div class="section"&gt;</code> 
+                    add kar do.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            © 2026 OFM ADS — All Rights Reserved
+        </div>
+
     </div>
-
-    <div>
-      <h3>Search User</h3>
-      <input id="searchUser" placeholder="Enter username">
-      <button onclick="addFriend()">Add Friend</button>
-    </div>
-
-    <div>
-      <h3>Friends</h3>
-      <ul id="friends"></ul>
-    </div>
-  </div>
-
-  <!-- Chat -->
-  <div class="chat">
-    <div class="messages" id="messages"></div>
-    <input id="msgInput" placeholder="Type message">
-    <button onclick="sendMsg()">Send</button>
-  </div>
-
-</div>
-
-<script>
-let profile = {};
-let friends = [];
-
-function createProfile() {
-  profile.name = document.getElementById("name").value;
-  profile.username = document.getElementById("username").value;
-  profile.bio = document.getElementById("bio").value;
-
-  alert("Profile Created!");
-}
-
-function addFriend() {
-  let user = document.getElementById("searchUser").value;
-  if(user) {
-    friends.push(user);
-    renderFriends();
-  }
-}
-
-function renderFriends() {
-  let list = document.getElementById("friends");
-  list.innerHTML = "";
-  friends.forEach(f => {
-    let li = document.createElement("li");
-    li.innerText = f;
-    list.appendChild(li);
-  });
-}
-
-function sendMsg() {
-  let msg = document.getElementById("msgInput").value;
-  if(!msg) return;
-
-  let box = document.getElementById("messages");
-
-  let div = document.createElement("div");
-  div.className = "msg";
-  div.innerText = profile.username + ": " + msg;
-
-  box.appendChild(div);
-  document.getElementById("msgInput").value = "";
-}
-</script>
 
 </body>
 </html>
